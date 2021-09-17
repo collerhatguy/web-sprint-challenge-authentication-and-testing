@@ -1,6 +1,13 @@
-const { findBy } = require("../auth/auth-modal")
+
 
 module.exports = (req, res, next) => {
-    req.user = req.body
+    const { username, password } = req.body
+    if (!username || !username.trim()) {
+       return next({ status: 404, message: "username required"})
+    }
+    if (!password || !password.trim()) {
+       return next({ status: 404, message: "password required"})
+    }
+
     next()
 }

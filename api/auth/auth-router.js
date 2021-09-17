@@ -2,9 +2,9 @@ const router = require('express').Router()
 const usernameUnique = require("../middleware/username-unique")
 const bcrypt = require("bcrypt")
 const { create } = require("./auth-modal")
+const verifyPaload = require("../middleware/account-payload")
 
-
-router.post('/register', usernameUnique, (req, res, next) => {
+router.post('/register', verifyPaload, usernameUnique, (req, res, next) => {
   const { username, password } = req.body
   const hash = bcrypt.hashSync(password, 8)
 

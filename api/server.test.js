@@ -34,4 +34,21 @@ describe("/api/auth/register", () => {
       expect(hashedProperly).toBeTruthy()
     })
   })
+  describe("faluire route", () => {
+    test("username must be unique", async () => {
+      const res = await request(server).post("/api/auth/register").send({ username: "rowValue1", password: "1234" })
+      expect(res.status).toBe(401)
+      expect(res.body.message.includes("username taken")).toBeTruthy()
+    })
+    test("contains both username and password", async () => {
+      const res = await request(server).post("/api/auth/register").send({ username: "rowValue1"})
+      expect(res.status).toBe(404)
+      expect(res.body.message.includes("password required"))
+    })
+    test("contains both username and password", async () => {
+      const res = await request(server).post("/api/auth/register").send({ password: "rowValue1"})
+      expect(res.status).toBe(404)
+      expect(res.body.message.includes("username required"))
+    })
+  })
 })
