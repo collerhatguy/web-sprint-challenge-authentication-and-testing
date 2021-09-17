@@ -8,7 +8,8 @@ const findBy = filter => {
 }
 
 const findById = id => {
-    return findBy({ id }).first()
+    return findBy({ id })
+        .first()
 }
 
 const create = user => {
@@ -16,7 +17,6 @@ const create = user => {
         .insert(user)
         .then(([id]) => findById(id))
 }
-
 
 module.exports = {
     getAll, 

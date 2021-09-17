@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt")
 test('sanity', () => {
   expect(true).toBe(true)
 })
-
 beforeAll(async () => {
   await db.migrate.rollback()
   await db.migrate.latest()
@@ -17,7 +16,7 @@ beforeEach(async () => await db.seed.run())
 describe("/api/auth/register", () => {
   describe("success route", () => {
     let res
-    beforeAll(async () => 
+    beforeEach(async () => 
       res = await request(server).post("/api/auth/register")
         .send({ username: "username", password: "1234" })
     )
