@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const usernameUnique = require("../middleware/username-unique")
+const usernameExists = require("../middleware/username-exists")
+const verifyPayload = require("../middleware/account-payload")
 const bcrypt = require("bcrypt")
 const { create } = require("./auth-modal")
-const verifyPaload = require("../middleware/account-payload")
-
-router.post('/register', verifyPaload, usernameUnique, (req, res, next) => {
+router.post('/register', verifyPayload, usernameUnique, (req, res, next) => {
   const { username, password } = req.body
   const hash = bcrypt.hashSync(password, 8)
 
@@ -38,8 +38,20 @@ router.post('/register', verifyPaload, usernameUnique, (req, res, next) => {
   */
 })
 
-router.post('/login', (req, res) => {
-  res.end('implement login, please!')
+router.post('/login', usernameExists, verifyPayload, (req, res) => {
+  const { user, body } = req
+  
+  res.status(200).json({
+    token: "insert token here",
+    message: `welcome, ${body.username}`
+  })
+  
+  // if (bcrypt.compareSync(body.password, user.password)) {
+  //   res.status(200).json({
+  //     token: "insert token here",
+  //     message: `welcome, ${body.username}`
+  //   })
+  // }
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.

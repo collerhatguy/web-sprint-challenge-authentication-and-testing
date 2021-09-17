@@ -52,3 +52,14 @@ describe("/api/auth/register", () => {
     })
   })
 })
+describe("/api/auth/login", () => {
+  describe("success", () => {
+    test("returns message and token", async () => {
+      const res = await request(server)
+        .post("/api/auth/login")
+        .send({ username: "rowValue1", password: "1234" })
+      expect(res.body).toHaveProperty("token")
+      expect(res.body).toHaveProperty("message")
+    })
+  })
+})
