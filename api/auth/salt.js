@@ -1,1 +1,0 @@
-module.exports = process.env.JWT_TOKEN || "super secret password #super-secret"

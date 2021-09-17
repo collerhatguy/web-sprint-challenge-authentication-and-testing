@@ -6,7 +6,7 @@ exports.seed = function(knex) {
         {
           id: 1, 
           username: 'rowValue1',
-          password: "1234"
+          password: "$2b$08$7xTL1wb76HIDZsfcId/t3esFqXIpTIT2ILFlSkfvrGbBi1309tCG."
         },
         {
           id: 2, 

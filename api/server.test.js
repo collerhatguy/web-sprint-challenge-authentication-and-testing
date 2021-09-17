@@ -60,6 +60,16 @@ describe("/api/auth/login", () => {
         .send({ username: "rowValue1", password: "1234" })
       expect(res.body).toHaveProperty("token")
       expect(res.body).toHaveProperty("message")
+      expect(res.body.message.includes("welcome"))
+    })
+  })
+  describe("failure", () => {
+    test("returns invalid credentials", async () => {
+      const res = await request(server)
+        .post("/api/auth/login")
+        .send({ username: "rowValue1", password: "1234" })
+      expect(res.body).toHaveProperty("message")
+      expect(res.body.message.includes("invalid crednetials"))
     })
   })
 })
